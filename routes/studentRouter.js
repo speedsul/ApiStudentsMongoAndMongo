@@ -54,5 +54,21 @@ app.delete('/student/:id', async (req, res) => {
     res.status(500).send(error);
   }
 });
+// PUT
+app.put('/student/:id', async (req, res) => {
+  try {
+    const id = req.params.id;
+    const student = await studentModel.findByIdAndDelete({ _id: id });
+    if(!student){
+      res.status(404).send({"message": "Erro ao emcontrar o aluno"})
+    }else{
+        res.status(200).send({"message": "Estudante deletado com sucesso"});
+    }
+    
+  
+  } catch (err) {
+    res.status(500).send(error);
+  }
+});
 
 export { app as studentRouter };
